@@ -5,54 +5,115 @@
 <title>Painel</title>
 
 <style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
 body{
-  margin:0;
-  font-family: Arial, sans-serif;
-  background:#0f172a;
-  color:white;
+font-family: system-ui, -apple-system, sans-serif;
+background: linear-gradient(135deg,#020617,#0f172a,#020617);
+color:white;
+min-height:100vh;
 }
 
+/* container */
 .container{
-  padding:20px;
+max-width:500px;
+margin:auto;
+padding:20px;
 }
 
-.header{
-  background:#1e293b;
-  padding:20px;
-  border-radius:15px;
-  margin-bottom:20px;
+/* topo */
+.topbar{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin-bottom:25px;
 }
 
+.logo{
+font-size:22px;
+font-weight:bold;
+}
+
+/* card vidro */
 .card{
-  background:#1e293b;
-  padding:20px;
-  border-radius:15px;
-  margin-bottom:20px;
+background:rgba(255,255,255,0.05);
+backdrop-filter:blur(15px);
+border-radius:20px;
+padding:25px;
+margin-bottom:20px;
+border:1px solid rgba(255,255,255,0.1);
+box-shadow:0 20px 40px rgba(0,0,0,0.4);
+transition:0.3s;
 }
 
+.card:hover{
+transform:translateY(-5px);
+}
+
+/* título */
+.title{
+font-size:18px;
+margin-bottom:10px;
+}
+
+/* email */
+.email{
+opacity:0.7;
+font-size:14px;
+}
+
+/* botão */
 button{
-  padding:15px;
-  width:100%;
-  border:none;
-  border-radius:10px;
-  background:#06b6d4;
-  color:white;
-  font-size:16px;
-  cursor:pointer;
+width:100%;
+padding:16px;
+border:none;
+border-radius:12px;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+margin-top:15px;
+transition:0.3s;
 }
 
-button:hover{
-  background:#0891b2;
+/* botão principal */
+.primary{
+background:linear-gradient(45deg,#06b6d4,#3b82f6);
+color:white;
 }
 
+.primary:hover{
+transform:scale(1.03);
+}
+
+/* botão sucesso */
+.success{
+background:linear-gradient(45deg,#22c55e,#16a34a);
+color:white;
+}
+
+/* logout */
 .logout{
-  background:#ef4444;
-  margin-top:10px;
+background:#ef4444;
 }
 
 .logout:hover{
-  background:#dc2626;
+background:#dc2626;
 }
+
+/* badge */
+.badge{
+background:#f59e0b;
+padding:5px 10px;
+border-radius:8px;
+font-size:12px;
+margin-left:10px;
+}
+
 </style>
 </head>
 
@@ -60,24 +121,29 @@ button:hover{
 
 <div class="container">
 
-<div class="header">
-<h2>🎉 Painel do Usuário</h2>
-<p id="userEmail">Carregando...</p>
+<div class="topbar">
+<div class="logo">🔥 Sorteio iPhone</div>
 </div>
 
 <div class="card">
-<h3>🔥 Sorteio iPhone 16</h3>
-<p>Participe do sorteio pagando a taxa de participação.</p>
-
-<button onclick="participar()">Participar do Sorteio</button>
+<div class="title">👤 Conta</div>
+<div class="email" id="userEmail">Carregando...</div>
 </div>
 
 <div class="card">
-<h3>💰 Pagamento</h3>
+<div class="title">
+🔥 Sorteio iPhone 16
+<span class="badge">ATIVO</span>
+</div>
+<p>Participe do sorteio e concorra ao prêmio.</p>
+<button class="primary" onclick="participar()">Participar do Sorteio</button>
+</div>
+
+<div class="card">
+<div class="title">💳 Pagamento</div>
 <p>Método: Transferência Kwik</p>
 <p>Número: <strong>000000000</strong></p>
-
-<button onclick="confirmarPagamento()">Já paguei</button>
+<button class="success" onclick="confirmarPagamento()">Já paguei</button>
 </div>
 
 <button class="logout" onclick="logout()">Sair</button>
@@ -90,40 +156,36 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/fireba
 import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDKRygwlhw-re2luMd0LKfoDqu4Gsjz5Ts",
-  authDomain: "sorteio-iphone.firebaseapp.com",
-  projectId: "sorteio-iphone",
-  storageBucket: "sorteio-iphone.firebasestorage.app",
-  messagingSenderId: "744093528955",
-  appId: "1:744093528955:web:bed7451f5db2480b0c03de"
+apiKey: "AIzaSyDKRygwlhw-re2luMd0LKfoDqu4Gsjz5Ts",
+authDomain: "sorteio-iphone.firebaseapp.com",
+projectId: "sorteio-iphone",
+storageBucket: "sorteio-iphone.firebasestorage.app",
+messagingSenderId: "744093528955",
+appId: "1:744093528955:web:bed7451f5db2480b0c03de"
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// mostrar email do usuário
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    document.getElementById("userEmail").innerText = "Usuário: " + user.email;
-  } else {
-    window.location.href = "index.html";
-  }
+onAuthStateChanged(auth,(user)=>{
+if(user){
+document.getElementById("userEmail").innerText = user.email;
+}else{
+window.location.href="index.html";
+}
 });
 
-// participar
-window.participar = () => {
-  alert("Faça o pagamento via Kwik para participar.");
+window.participar=()=>{
+alert("Faça o pagamento via Kwik para participar.");
 };
 
-// confirmar pagamento
-window.confirmarPagamento = () => {
-  alert("Pagamento enviado para análise pelo administrador.");
+window.confirmarPagamento=()=>{
+alert("Pagamento enviado para análise.");
 };
 
-// logout
-window.logout = () => {
-  signOut(auth);
-  window.location.href = "index.html";
+window.logout=()=>{
+signOut(auth);
+window.location.href="index.html";
 };
 
 </script>
