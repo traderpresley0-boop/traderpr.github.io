@@ -1,0 +1,36 @@
+body {
+margin: 0;
+font-family: Arial, sans-serif;
+background: #0f172a;
+color: white;
+}
+
+header {
+display: flex;
+justify-content: space-between;
+padding: 20px;
+background: #020617;
+}
+
+.hero {
+text-align: center;
+padding: 80px 20px;
+}
+
+.portfolio {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(200px,1fr));
+gap: 20px;
+padding: 40px;
+}
+
+.card {
+background: #1e293b;
+padding: 40px;
+border-radius: 12px;
+}
+
+.sorteio {
+text-align: center;
+padding: 60px;
+}
