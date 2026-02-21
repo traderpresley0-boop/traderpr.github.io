@@ -3,144 +3,99 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sorteio iPhone</title>
+<title>Sorteio iPhone 16</title>
 
 <style>
-body{
-font-family:Arial;
-background:black;
-color:white;
-text-align:center;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
 }
 
-.container{
-max-width:400px;
-margin:auto;
-padding:20px;
+body {
+  background: #000;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
-input{
-width:100%;
-padding:12px;
-margin:10px 0;
-border:none;
-border-radius:10px;
+/* título */
+.title {
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: 40px;
 }
 
-button{
-background:#00f7ff;
-border:none;
-padding:12px;
-width:100%;
-border-radius:10px;
-font-weight:bold;
+/* caixa principal */
+.card {
+  background: #111;
+  padding: 40px;
+  border-radius: 25px;
+  width: 380px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.5);
 }
 
-.card{
-background:#111;
-padding:20px;
-border-radius:20px;
-margin-top:20px;
+.card h2 {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* inputs */
+.input-group {
+  margin-bottom: 20px;
+}
+
+input {
+  width: 100%;
+  padding: 18px;
+  border-radius: 15px;
+  border: none;
+  font-size: 18px;
+  background: #ddd;
+}
+
+/* botões */
+button {
+  width: 100%;
+  padding: 18px;
+  border-radius: 15px;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  background: #1fd4d4;
+  transition: 0.3s;
+}
+
+button:hover {
+  background: #16baba;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="title">🔥 Sorteio iPhone 16</div>
 
-<h1>🔥 Sorteio iPhone 16</h1>
+<div class="card">
+  <h2>Criar Conta / Login</h2>
 
-<div class="card" id="loginBox">
-<h3>Criar Conta / Login</h3>
+  <div class="input-group">
+    <input type="email" placeholder="Email">
+  </div>
 
-<input id="email" placeholder="Email">
-<input id="password" type="password" placeholder="Senha">
+  <div class="input-group">
+    <input type="password" placeholder="Senha">
+  </div>
 
-<button onclick="register()">Criar Conta</button>
-<br><br>
-<button onclick="login()">Entrar</button>
+  <button>Criar Conta</button>
+  <button>Entrar</button>
 </div>
-
-<div class="card" id="dashboard" style="display:none">
-<h2>Conta do Participante</h2>
-<p id="userEmail"></p>
-<p>Saldo: 0 Kz</p>
-<p>Status: Participação pendente</p>
-
-<button onclick="logout()">Sair</button>
-</div>
-
-</div>
-
-<script type="module">
-
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
-
-const firebaseConfig = {
-apiKey: "AIzaSyDKRygwlhw-re2luMd0LKfoDqu4Gsjz5Ts",
-authDomain: "sorteio-iphone.firebaseapp.com",
-projectId: "sorteio-iphone",
-storageBucket: "sorteio-iphone.firebasestorage.app",
-messagingSenderId: "744093528955",
-appId: "1:744093528955:web:bed7451f5db2480b0c03de"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-
-window.register = async () => {
-const email=document.getElementById("email").value;
-const password=document.getElementById("password").value;
-
-await createUserWithEmailAndPassword(auth,email,password);
-alert("Conta criada!");
-}
-
-window.login = async () => {
-const email=document.getElementById("email").value;
-const password=document.getElementById("password").value;
-
-await signInWithEmailAndPassword(auth,email,password);
-}
-
-window.logout = () => signOut(auth);
-
-onAuthStateChanged(auth,user=>{
-if(user){
-loginBox.style.display="none";
-dashboard.style.display="block";
-userEmail.innerText="Email: "+user.email;
-}else{
-loginBox.style.display="block";
-dashboard.style.display="none";
-}
-});
-
-</script>
 
 </body>
-<h3>💳 Participar no sorteio</h3>
-
-<div class="pagamento-box">
-
-<p>Faça transferência bancária:</p>
-
-<p><strong>Banco:</strong> Kwik</p>
-<p><strong>IBAN:</strong> AO06042000000000027091758</p>
-<p><strong>Titular:</strong> Leandro António</p>
-<p><strong>Valor:</strong> 1000 Kz</p>
-
-<hr>
-
-<p>Após pagamento envie o comprovante:</p>
-
-<input type="file" id="comprovante">
-
-<button onclick="enviarComprovante()" class="btn-pagar">
-Enviar comprovante
-</button>
-
-  </div>
-  </html>
+</html>
