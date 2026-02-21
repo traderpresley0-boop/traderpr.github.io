@@ -1,36 +1,30 @@
-<!DOCTYPE html>
-<html lang="pt">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Portfólio Profissional</title>
-<link rel="stylesheet" href="style.css">
-</head>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"
+import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
 
-<body>
+const firebaseConfig = {
+  apiKey:"TUA_KEY",
+  authDomain:"TUA_URL",
+  projectId:"TEU_ID"
+}
 
-<header>
-<h1>Meu Portfólio</h1>
-<button onclick="abrirLogin()">Entrar</button>
-</header>
+const app = initializeApp(firebaseConfig)
+const auth = getAuth(app)
+const db = getFirestore(app)
 
-<section class="hero">
-<h2>Desenvolvedor Web</h2>
-<p>Crio experiências digitais modernas.</p>
-</section>
+window.registar = async () => {
+const email=document.getElementById("email").value
+const pass=document.getElementById("senha").value
+await createUserWithEmailAndPassword(auth,email,pass)
+alert("Conta criada!")
+}
 
-<section class="portfolio">
-<h2>Projetos</h2>
-<div class="card">Projeto 1</div>
-<div class="card">Projeto 2</div>
-</section>
-
-<section class="sorteio">
-<h2>Sorteio</h2>
-<input id="email" placeholder="Teu email">
-<button onclick="participar()">Participar</button>
-</section>
-
-<script src="app.js"></script>
+window.participar = async () => {
+const email=document.getElementById("email").value
+await addDoc(collection(db,"participantes"),{email})
+alert("Inscrito no sorteio!")
+}
+                                     </script>
 </body>
 </html>
