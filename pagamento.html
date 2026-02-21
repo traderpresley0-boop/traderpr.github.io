@@ -2,61 +2,120 @@
 <html lang="pt">
 <head>
 <meta charset="UTF-8">
-<title>Enviar Comprovativo</title>
+<title>Enviar Pagamento</title>
 
 <style>
-body {
-  background: #0f172a;
-  color: white;
-  font-family: Arial;
-  text-align: center;
-  padding: 20px;
+
+body{
+font-family:system-ui;
+background:linear-gradient(135deg,#020617,#0f172a,#020617);
+color:white;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
 }
 
-.card {
-  background: #1e293b;
-  padding: 20px;
-  border-radius: 15px;
-  max-width: 400px;
-  margin: auto;
+.card{
+background:rgba(255,255,255,0.05);
+padding:30px;
+border-radius:20px;
+width:90%;
+max-width:400px;
+text-align:center;
+backdrop-filter:blur(15px);
 }
 
-input {
-  margin: 15px 0;
+input{
+width:100%;
+padding:15px;
+margin-top:15px;
+border-radius:10px;
+border:none;
 }
 
-button {
-  background: #22c55e;
-  border: none;
-  padding: 15px;
-  width: 100%;
-  border-radius: 10px;
-  color: white;
-  font-size: 16px;
+button{
+width:100%;
+padding:15px;
+margin-top:20px;
+border:none;
+border-radius:12px;
+font-weight:bold;
+background:linear-gradient(45deg,#06b6d4,#3b82f6);
+color:white;
+cursor:pointer;
 }
+
 </style>
-
 </head>
 
 <body>
 
 <div class="card">
-  <h2>Enviar Comprovativo</h2>
 
-  <p>Faça o pagamento para:</p>
-  <strong>IBAN Kwik</strong>
-  <p>AO06042000000000027091758</p>
+<h2>💳 Enviar Comprovativo</h2>
 
-  <input type="file" id="file">
+<p>Faça a transferência para:</p>
+<p><strong>IBAN:</strong> AO06042000000000027091758</p>
 
-  <button onclick="enviar()">Enviar comprovativo</button>
+<input type="file" id="file">
+
+<button onclick="enviar()">Enviar Comprovativo</button>
+
 </div>
 
-<script>
-function enviar() {
-  alert("Comprovativo enviado com sucesso!");
-  window.location.href = "index.html";
+<script type="module">
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getStorage, ref, uploadBytes } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-storage.js";
+import { getFirestore, setDoc, doc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+apiKey:"AIzaSyDKRygwlhw-re2luMd0LKfoDqu4Gsjz5Ts",
+authDomain:"sorteio-iphone.firebaseapp.com",
+projectId:"sorteio-iphone",
+storageBucket:"sorteio-iphone.firebasestorage.app",
+messagingSenderId:"744093528955",
+appId:"1:744093528955:web:bed7451f5db2480b0c03de"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const storage = getStorage(app);
+const db = getFirestore(app);
+
+window.enviar = async () => {
+
+const file = document.getElementById("file").files[0];
+const user = auth.currentUser;
+
+if(!file){
+alert("Selecione o comprovativo");
+return;
 }
+
+if(!user){
+alert("Login necessário");
+return;
+}
+
+const storageRef = ref(storage,"comprovativos/"+user.uid);
+
+await uploadBytes(storageRef,file);
+
+await setDoc(doc(db,"pagamentos",user.uid),{
+email:user.email,
+status:"aguardando",
+data:new Date()
+});
+
+alert("Comprovativo enviado! Aguarde confirmação.");
+
+window.location.href="painel.html";
+
+};
+
 </script>
 
 </body>
