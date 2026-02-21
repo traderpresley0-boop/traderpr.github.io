@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>Enviar Comprovativo</title>
+
+<style>
+body {
+  background: #0f172a;
+  color: white;
+  font-family: Arial;
+  text-align: center;
+  padding: 20px;
+}
+
+.card {
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 15px;
+  max-width: 400px;
+  margin: auto;
+}
+
+input {
+  margin: 15px 0;
+}
+
+button {
+  background: #22c55e;
+  border: none;
+  padding: 15px;
+  width: 100%;
+  border-radius: 10px;
+  color: white;
+  font-size: 16px;
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="card">
+  <h2>Enviar Comprovativo</h2>
+
+  <p>Faça o pagamento para:</p>
+  <strong>IBAN Kwik</strong>
+  <p>AO06042000000000027091758</p>
+
+  <input type="file" id="file">
+
+  <button onclick="enviar()">Enviar comprovativo</button>
+</div>
+
+<script>
+function enviar() {
+  alert("Comprovativo enviado com sucesso!");
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
