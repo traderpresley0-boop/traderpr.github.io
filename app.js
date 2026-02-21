@@ -1,3 +1,37 @@
+import {
+getStorage,
+ref,
+uploadBytes,
+getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
+const storage = getStorage();
+async function enviarComprovante(){
+
+const file = document.getElementById("comprovante").files[0];
+
+if(!file){
+alert("Envie o comprovante primeiro");
+return;
+}
+
+const storageRef = ref(storage,"comprovantes/"+currentUser.uid);
+
+await uploadBytes(storageRef,file);
+
+const url = await getDownloadURL(storageRef);
+
+const userRef = doc(db,"usuarios",currentUser.uid);
+
+await updateDoc(userRef,{
+comprovante:url,
+status:"Aguardando confirmação",
+saldo:1000
+});
+
+alert("Comprovante enviado! Aguarde confirmação do administrador.");
+
+location.reload();
+  }
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
