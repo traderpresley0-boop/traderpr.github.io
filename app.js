@@ -1,9 +1,24 @@
-function abrirLogin() {
-  alert("Página de login aqui");
-}
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
-function participar() {
+const firebaseConfig = {
+  apiKey: "AIzaSyDKRygwlhw-re2luMd0LKfoDqu4Gsjz5Ts",
+  authDomain: "sorteio-iphone.firebaseapp.com",
+  projectId: "sorteio-iphone",
+  storageBucket: "sorteio-iphone.firebasestorage.app",
+  messagingSenderId: "744093528955",
+  appId: "1:744093528955:web:bed7451f5db2480b0c03de"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+
+// Criar conta
+window.registrar = function () {
   const email = document.getElementById("email").value;
-  if (!email) return alert("Digite um email");
-  alert("Inscrito no sorteio!");
-}
+  const senha = document.getElementById("senha").value;
+
+  createUserWithEmailAndPassword(auth, email, senha)
+    .then(() => alert("Conta criada com sucesso!"))
+    .catch(error => alert(error.message));
+};
