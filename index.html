@@ -1,77 +1,36 @@
 <!DOCTYPE html>
 <html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <title>Meu Primeiro Site</title>
-
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #f4f4f4;
-    }
-
-    header {
-      background: #333;
-      color: white;
-      padding: 20px;
-      text-align: center;
-    }
-
-    nav {
-      background: #555;
-      padding: 10px;
-      text-align: center;
-    }
-
-    nav a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-
-    .container {
-      padding: 40px;
-      text-align: center;
-    }
-
-    footer {
-      background: #333;
-      color: white;
-      padding: 15px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfólio Profissional</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <header>
-  <h1>Meu Site</h1>
-  <p>Bem-vindo ao meu primeiro website 🚀</p>
+<h1>Meu Portfólio</h1>
+<button onclick="abrirLogin()">Entrar</button>
 </header>
 
-<nav>
-  <a href="#">Início</a>
-  <a href="#">Sobre</a>
-  <a href="#">Contacto</a>
-</nav>
+<section class="hero">
+<h2>Desenvolvedor Web</h2>
+<p>Crio experiências digitais modernas.</p>
+</section>
 
-<div class="container">
-  <h2>Página Inicial</h2>
-  <p>Este site foi criado com HTML e CSS.</p>
-</div>
+<section class="portfolio">
+<h2>Projetos</h2>
+<div class="card">Projeto 1</div>
+<div class="card">Projeto 2</div>
+</section>
 
-<footer>
-  © 2026 Meu Site
-</footer>
+<section class="sorteio">
+<h2>Sorteio</h2>
+<input id="email" placeholder="Teu email">
+<button onclick="participar()">Participar</button>
+</section>
 
+<script src="app.js"></script>
 </body>
 </html>
