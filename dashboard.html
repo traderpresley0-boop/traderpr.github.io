@@ -1,20 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="estilo.css">
+<title>Dashboard</title>
+<link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
 <h1>Minha Conta</h1>
 
-<div class="card">
-  <p><strong>Email:</strong> <span id="userEmail"></span></p>
-  <p><strong>Saldo:</strong> <span id="saldo">0 Kz</span></p>
-  <p><strong>Estado:</strong> <span id="estado">Precisa depósito</span></p>
-</div>
+<p>Email: <span id="email"></span></p>
+<p>Saldo: <span id="saldo"></span></p>
+<p>Status: <span id="status"></span></p>
 
+<h3>Enviar comprovante</h3>
+<input type="file" id="comprovante">
+<button onclick="enviar()">Enviar</button>
+
+<br><br>
 <button onclick="logout()">Sair</button>
 
 <script type="module" src="dashboard.js"></script>
