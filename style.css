@@ -34,3 +34,27 @@ border-radius: 12px;
 text-align: center;
 padding: 60px;
 }
+
+body{
+  background:black;
+  color:white;
+  font-family:Arial;
+  text-align:center;
+}
+
+.card{
+  margin:30px;
+  padding:20px;
+  border-radius:15px;
+  background:rgba(0,255,255,0.1);
+  border:1px solid cyan;
+  box-shadow:0 0 20px cyan;
+}
+
+button{
+  padding:15px;
+  border:none;
+  border-radius:10px;
+  background:cyan;
+  font-size:18px;
+}
