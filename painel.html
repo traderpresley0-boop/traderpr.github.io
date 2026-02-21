@@ -19,14 +19,12 @@ color:white;
 min-height:100vh;
 }
 
-/* container */
 .container{
 max-width:500px;
 margin:auto;
 padding:20px;
 }
 
-/* topo */
 .topbar{
 display:flex;
 justify-content:space-between;
@@ -39,7 +37,6 @@ font-size:22px;
 font-weight:bold;
 }
 
-/* card vidro */
 .card{
 background:rgba(255,255,255,0.05);
 backdrop-filter:blur(15px);
@@ -55,19 +52,16 @@ transition:0.3s;
 transform:translateY(-5px);
 }
 
-/* título */
 .title{
 font-size:18px;
 margin-bottom:10px;
 }
 
-/* email */
 .email{
 opacity:0.7;
 font-size:14px;
 }
 
-/* botão */
 button{
 width:100%;
 padding:16px;
@@ -80,7 +74,6 @@ margin-top:15px;
 transition:0.3s;
 }
 
-/* botão principal */
 .primary{
 background:linear-gradient(45deg,#06b6d4,#3b82f6);
 color:white;
@@ -90,28 +83,22 @@ color:white;
 transform:scale(1.03);
 }
 
-/* botão sucesso */
-.success{
-background:linear-gradient(45deg,#22c55e,#16a34a);
-color:white;
-}
-
-/* logout */
 .logout{
 background:#ef4444;
 }
 
-.logout:hover{
-background:#dc2626;
-}
-
-/* badge */
 .badge{
 background:#f59e0b;
 padding:5px 10px;
 border-radius:8px;
 font-size:12px;
 margin-left:10px;
+}
+
+/* botão pagar */
+.btn-pagar{
+background:#fff;
+color:#000;
 }
 
 </style>
@@ -140,14 +127,13 @@ margin-left:10px;
 </div>
 
 <div class="card">
-<div class="card">
-  <h3>💳 Pagamento</h3>
-  <p>Método: Transferência Kwik</p>
-  <p><strong>IBAN:</strong> AO06042000000000027091758</p>
+<h3>💳 Pagamento</h3>
+<p>Método: Transferência Kwik</p>
+<p><strong>IBAN:</strong> AO06042000000000027091758</p>
 
-  <button onclick="irPagamento()" class="btn-pagar">
-    Pagar
-  </button>
+<button onclick="irPagamento()" class="btn-pagar">
+Pagar
+</button>
 </div>
 
 </div>
@@ -177,12 +163,14 @@ window.location.href="index.html";
 }
 });
 
+/* participar sorteio */
 window.participar=()=>{
 alert("Faça o pagamento via Kwik para participar.");
 };
 
-window.confirmarPagamento=()=>{
-alert("Pagamento enviado para análise.");
+/* 🔥 AQUI ESTÁ O QUE FALTAVA */
+window.irPagamento=()=>{
+window.location.href="pagamento.html";
 };
 
 window.logout=()=>{
