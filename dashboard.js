@@ -1,26 +1,76 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Dashboard</title>
-<link rel="stylesheet" href="style.css">
-</head>
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
 
-<body>
+import {
+getAuth,
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-auth.js";
 
-<h1>Minha Conta</h1>
+import {
+getFirestore,
+doc,
+getDoc,
+updateDoc
+} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
 
-<p>Email: <span id="email"></span></p>
-<p>Saldo: <span id="saldo"></span></p>
-<p>Status: <span id="status"></span></p>
+import {
+getStorage,
+ref,
+uploadBytes,
+getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.9.0/firebase-storage.js";
 
-<h3>Enviar comprovante</h3>
-<input type="file" id="comprovante">
-<button onclick="enviar()">Enviar</button>
+const firebaseConfig = {
+apiKey: "SUA_API_KEY",
+authDomain: "SEU_PROJETO.firebaseapp.com",
+projectId: "SEU_PROJETO",
+storageBucket: "SEU_PROJETO.appspot.com"
+};
 
-<br><br>
-<button onclick="logout()">Sair</button>
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const storage = getStorage(app);
 
-<script type="module" src="dashboard.js"></script>
 
-</body>
-</html>
+// carregar dados do usuário
+onAuthStateChanged(auth, async user => {
+
+if(!user){
+window.location.href = "index.html";
+return;
+}
+
+const docSnap = await getDoc(doc(db,"usuarios",user.uid));
+
+document.getElementById("email").innerText = docSnap.data().email;
+document.getElementById("saldo").innerText = docSnap.data().saldo;
+document.getElementById("status").innerText = docSnap.data().status;
+
+});
+
+
+// enviar comprovante
+window.enviar = async function(){
+
+const file = document.getElementById("comprovante").files[0];
+const user = auth.currentUser;
+
+const storageRef = ref(storage,"comprovantes/"+user.uid);
+
+await uploadBytes(storageRef,file);
+
+const url = await getDownloadURL(storageRef);
+
+await updateDoc(doc(db,"usuarios",user.uid),{
+comprovante:url,
+status:"Aguardando aprovação"
+});
+
+alert("Comprovante enviado!");
+location.reload();
+}
+
+
+// sair
+window.logout = () => signOut(auth);
