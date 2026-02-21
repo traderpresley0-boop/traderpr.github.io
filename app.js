@@ -19,6 +19,6 @@ window.registrar = function () {
   const senha = document.getElementById("senha").value;
 
   createUserWithEmailAndPassword(auth, email, senha)
-    .then(() => alert("Conta criada com sucesso!"))
+    ..then(() => window.location.href = "dashboard.html")
     .catch(error => alert(error.message));
 };
