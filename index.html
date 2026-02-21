@@ -1,30 +1,153 @@
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js"
-import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js"
-import { getFirestore, addDoc, collection } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js"
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sorteio iPhone 16</title>
 
-const firebaseConfig = {
-  apiKey:"TUA_KEY",
-  authDomain:"TUA_URL",
-  projectId:"TEU_ID"
+<style>
+body{
+margin:0;
+font-family:Arial, sans-serif;
+background:#020617;
+color:white;
 }
 
-const app = initializeApp(firebaseConfig)
-const auth = getAuth(app)
-const db = getFirestore(app)
-
-window.registar = async () => {
-const email=document.getElementById("email").value
-const pass=document.getElementById("senha").value
-await createUserWithEmailAndPassword(auth,email,pass)
-alert("Conta criada!")
+/* fundo gradiente neon */
+body::before{
+content:"";
+position:fixed;
+width:100%;
+height:100%;
+background:linear-gradient(45deg,#001f3f,#3b00ff,#00f7ff);
+opacity:0.15;
+z-index:-1;
 }
 
-window.participar = async () => {
-const email=document.getElementById("email").value
-await addDoc(collection(db,"participantes"),{email})
-alert("Inscrito no sorteio!")
+/* header */
+header{
+display:flex;
+justify-content:space-between;
+padding:20px;
+background:#020617;
+box-shadow:0 0 20px #00f7ff;
 }
-                                     </script>
+
+/* hero */
+.hero{
+text-align:center;
+padding:80px 20px;
+}
+
+/* imagem prémio */
+.phone{
+width:260px;
+margin:30px auto;
+border-radius:30px;
+box-shadow:0 0 40px #00f7ff;
+transition:0.4s;
+}
+
+.phone:hover{
+transform:scale(1.05);
+box-shadow:0 0 80px #3b00ff;
+}
+
+/* botões neon */
+button{
+padding:15px 30px;
+margin:10px;
+border:none;
+border-radius:10px;
+background:linear-gradient(45deg,#00f7ff,#3b00ff);
+color:white;
+font-size:16px;
+cursor:pointer;
+box-shadow:0 0 20px #00f7ff;
+}
+
+/* frases */
+.motivacao{
+font-size:22px;
+margin-top:20px;
+color:#00f7ff;
+}
+
+/* contadores */
+.stats{
+display:flex;
+justify-content:center;
+gap:40px;
+padding:40px;
+}
+
+.card{
+background:#020617;
+padding:30px;
+border-radius:15px;
+box-shadow:0 0 20px #3b00ff;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>🔥 Sorteio Oficial</h2>
+<button onclick="abrirLogin()">Entrar</button>
+</header>
+
+<section class="hero">
+
+<h1>GANHE UM iPhone 16</h1>
+
+<img src="https://images.unsplash.com/photo-1592750475338-74b7b21085ab"
+class="phone">
+
+<p class="motivacao">
+A tua oportunidade começa aqui.  
+O próximo vencedor pode ser você.
+</p>
+
+<button onclick="registrar()">Criar Conta</button>
+<button onclick="participar()">Participar Agora</button>
+
+</section>
+
+<section class="stats">
+<div class="card">
+<h2 id="users">0</h2>
+<p>Inscritos</p>
+</div>
+
+<div class="card">
+<h2 id="participants">0</h2>
+<p>Participantes</p>
+</div>
+</section>
+
+<script>
+function abrirLogin(){
+alert("Página de login em construção")
+}
+
+function registrar(){
+alert("Criar conta")
+}
+
+function participar(){
+alert("Precisa criar conta primeiro")
+}
+
+/* animação contador */
+let u=0,p=0
+setInterval(()=>{
+u+=3
+p+=2
+document.getElementById("users").innerText=u
+document.getElementById("participants").innerText=p
+},1000)
+</script>
+
 </body>
 </html>
